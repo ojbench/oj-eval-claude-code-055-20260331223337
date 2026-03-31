@@ -29,6 +29,16 @@ struct date
         return year == other.year && month == other.month && day == other.day;
     }
 
+    // Greater than or equal operator
+    bool operator>=(const date& other) const {
+        return !(*this < other);
+    }
+
+    // Less than or equal operator
+    bool operator<=(const date& other) const {
+        return (*this < other) || (*this == other);
+    }
+
     // Helper function to calculate days from epoch
     int toDays() const {
         return year * 360 + month * 30 + day;
@@ -166,7 +176,7 @@ public:
             return "mail not send";
 
         // Check if arrived
-        if (!(ask_date < arrive_date))
+        if (ask_date >= arrive_date)
             return "already arrive";
 
         // Check each station
@@ -246,7 +256,7 @@ public:
         date ask_date(y, m, d);
         if (ask_date < send_date)
             return "mail not send";
-        else if (!(ask_date < arrive_date))
+        else if (ask_date >= arrive_date)
             return "already arrive";
         else {
             // Calculate current mile
