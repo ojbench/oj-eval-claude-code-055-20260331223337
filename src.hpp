@@ -41,7 +41,7 @@ struct date
 
     // Helper function to calculate days from epoch
     int toDays() const {
-        return year * 360 + month * 30 + day;
+        return year * 360 + (month - 1) * 30 + day;
     }
 };
 
