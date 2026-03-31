@@ -218,11 +218,16 @@ public:
             delete[] station_time;
 
         len = tm->len;
-        station_name = new string[len];
-        station_time = new date[len];
-        for (int i = 0; i < len; i++) {
-            station_name[i] = tm->station_name[i];
-            station_time[i] = tm->station_time[i];
+        if (len > 0) {
+            station_name = new string[len];
+            station_time = new date[len];
+            for (int i = 0; i < len; i++) {
+                station_name[i] = tm->station_name[i];
+                station_time[i] = tm->station_time[i];
+            }
+        } else {
+            station_name = nullptr;
+            station_time = nullptr;
         }
     }
 
