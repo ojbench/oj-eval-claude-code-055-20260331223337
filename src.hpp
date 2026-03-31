@@ -24,6 +24,11 @@ struct date
         return day < other.day;
     }
 
+    // Equality operator
+    bool operator==(const date& other) const {
+        return year == other.year && month == other.month && day == other.day;
+    }
+
     // Helper function to calculate days from epoch
     int toDays() const {
         return year * 360 + month * 30 + day;
@@ -164,14 +169,15 @@ public:
         if (!(ask_date < arrive_date))
             return "already arrive";
 
-        // Check which station or between stations
+        // Check each station
         for (int i = 0; i < len; i++) {
             if (ask_date < station_time[i]) {
-                // Still before this station
-                if (i == 0)
-                    return "on the way to " + station_name[0];
-                else
-                    return "on the way to " + station_name[i];
+                // Still before this station, on the way
+                return "on the way to " + station_name[i];
+            }
+            // Check if at this station (exactly equal)
+            if (ask_date == station_time[i]) {
+                return "at " + station_name[i];
             }
         }
 
